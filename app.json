@@ -1,0 +1,23 @@
+{
+  "name": "spoticall node",
+  "description": "Uses Twilio to receive a song name by SMS and returns a phone call with it playing.",
+  "repository": "https://github.com/eddiezane/spoticall-node",
+  "keywords": ["node", "twilio", "spoticall"],
+  "env": {
+    "TWILIO_ACCOUNT_SID": {
+      "description": "Your Twilio Account SID from https://twilio.com/console"
+    },
+    "TWILIO_AUTH_TOKEN": {
+      "description": "Your Twilio Auth Token from https://twilio.com/console"
+    },
+    "TWILIO_PHONE_NUMBER": {
+      "description": "A Twilio phone number from https://www.twilio.com/console/phone-numbers"
+    },
+    "TWILIO_CALL_HOSTNAME": {
+      "description": "The publicly addressable hostname of your application. This will be your Heroku apps URL."
+    },
+    "TWILIO_SMS_MESSAGE": {
+      "description": "The message you want in the SMS reply."
+    }
+  }
+}

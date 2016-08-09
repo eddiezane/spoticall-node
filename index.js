@@ -16,7 +16,7 @@ app.post('/sms', (req, res) => {
   client.makeCall({
     to: number,
     from: process.env.TWILIO_PHONE_NUMBER,
-    url: `${process.env.TWILIO_CALL_URL}/call?track=${encodeURIComponent(track)}`, // TODO: Plug in your ngrok url
+    url: `${process.env.TWILIO_CALL_HOSTNAME}/call?track=${encodeURIComponent(track)}`, // TODO: Plug in your ngrok url
     method: 'GET'
   })
   .catch(err => console.error(err))
