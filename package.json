@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "6.x"
+  },
   "dependencies": {
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
