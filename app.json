@@ -13,8 +13,8 @@
     "TWILIO_PHONE_NUMBER": {
       "description": "A Twilio phone number from https://www.twilio.com/console/phone-numbers"
     },
-    "TWILIO_CALL_HOSTNAME": {
-      "description": "The publicly addressable hostname of your application. This will be your Heroku apps URL."
+    "TWILIO_CALL_URL": {
+      "description": "The publicly addressable hostname of your application. This will be your Heroku apps URL. Example: `http://your-app-name.herokuapp.com`"
     },
     "TWILIO_SMS_MESSAGE": {
       "description": "The message you want in the SMS reply."
