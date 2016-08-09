@@ -4,21 +4,24 @@ const request = require('request')
 const twilio = require('twilio')
 
 const app = express()
-const client = twilio()
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+
+app.set('PORT', process.env.PORT || 3000)
 
 app.use(urlencoded({ extended: false }))
 
 app.post('/sms', (req, res) => {
   const { Body: track, From: number } = req.body
+  console.log('track:', track)
   client.makeCall({
     to: number,
     from: process.env.TWILIO_PHONE_NUMBER,
-    url: `http://ez.ngrok.io/call?track=${encodeURIComponent(track)}`, // TODO: Plug in your ngrok url
+    url: `${process.env.TWILIO_CALL_URL}/call?track=${encodeURIComponent(track)}`, // TODO: Plug in your ngrok url
     method: 'GET'
   })
   .catch(err => console.error(err))
   const twiml = new twilio.TwimlResponse()
-  twiml.message('Your jam is on the way!')
+  twiml.message(process.env.TWILIO_SMS_MESSAGE || 'Your jam is on the way!')
   res.send(twiml.toString())
 })
 
@@ -51,12 +54,19 @@ function getSong (track) {
       if (err) {
         return reject(err)
       }
-      if (body.tracks.items.length === 0) {
-        return reject(new Error('Sorry, track not found'))
+      try {
+        return resolve(body.tracks.items[0].preview_url)
+      } catch (e) {
+        return reject(new Error('Sorry, track not found. Please try a different song that will be on Spotify.'))
       }
-      resolve(body.tracks.items[0].preview_url)
     })
   })
 }
 
-app.listen(3000)
+app.listen(app.get('PORT'), err => {
+  if (err) {
+    throw err
+  }
+
+  console.log(`started on port: ${app.get('PORT')}`)
+})
